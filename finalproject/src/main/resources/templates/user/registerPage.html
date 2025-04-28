@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <h1>회원 가입</h1>
+    <!-- 입력양식은 form태그 안에 있어야함 -->
+    <!-- name은 DTO의 필드명으로 지으면 Spring 에서 자동으로 연결시켜줌  -->
+    <!-- 우리는 절대경로를 쓸 것임 / 상대경로 써도되긴함 + post를 사용했지만 , get으로 테스트 해보기(가시성)  -->
+    <form action="/user/registerProcess" method="post">  
+    <!-- form -->
+    아이디: <input name="accountName" type="text"><br>
+    비밀번호: <input name="password" type="password"><br>
+    닉네임: <input name="nickname" type="text"><br>
+    이메일: <input name="email" type="text"><br>
+    성별:   
+    <input name="gender" value="M" type="radio">남
+    <input name="gender" value="F" type="radio">여<br>
+    <!-- radio 버튼이나 체크박스는 value를 잘 선택해야함 !!! -->
+    생년월일: <input name="birth" type="date"><br>
+    전화번호: <input name="phone" type="text"><br>
+    <!-- <input type="submit" value='회원가입>' 아니면 버튼 있으면 action이 반응함 -->
+    <!-- 회원가입버튼 누르면 링크처럼 타고감 -->
+    <button>회원 가입</button>
+    </form>
+
+</body>
+</html>
