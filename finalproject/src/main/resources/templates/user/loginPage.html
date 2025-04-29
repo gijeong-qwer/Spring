@@ -7,9 +7,16 @@
 </head>
 <body>
     <h1>로그인 페이지</h1>
+<!-- 파라미터로 객체에 해당하는 정보를 보낼거면 DTO의 필드 가져가기 -->
+<!-- 2개이상 객체로 받는다 -->
+<!-- 1개는 단위로 받는다: 일때는 필드명이 아니여도 상관없음 .. xxx ,yyy써도 상관없음 -->
 
-    아이디: <input type="text"><br>
-    비밀번호: <input type="password"><br>
+    <form action="/user/loginProcess" method="post">
+    아이디: <input name="accountName" type="text"><br>
+    비밀번호: <input name="password" type="password"><br>
+    <button>로그인</button><br>
+    </form>
+
     <a href="/user/registerPage">회원가입</a>
    
 </body>

@@ -17,4 +17,11 @@ public class UserServiceImpl {
         userSqlMapper.createUser(UserDto);
     }
 
+    public UserDto getUserByAccountNameAndPassword(String accountName, String password){
+        UserDto userDto = userSqlMapper.findUserByAccountNameAndPassword(accountName,password);
+        // 정상 입력시 Dto에 정보 다 받아서 return, 잘못이력시 null 나옴 
+        // 조건에 안맞는 값으로 쿼리를 작성하면 null값이 나옴 **
+        return userDto;
+    }
+
 }

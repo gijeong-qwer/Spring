@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+
+    <div th:if="${session.sessionUserInfo}">
+        <span th:text="${session.sessionUserInfo.nickname}"></span>님 환영합니다. 
+        <a href="/user/logoutProcess">로그아웃</a>
+    </div>
+    
+    <div th:unless="${session.sessionUserInfo}">
+        비회원 입니다. 
+        <a href="/user/loginPage">로그인</a>
+    </div>
+    
+</body>
+</html>
+<!-- 호출시 setter getter 호출 // 직접 호출 아님 -->
+<!-- <div th:if="${session.sessionUserInfo}"> 이조건은
+    HttpSession session;
+    session.getAttribute("sessionUserInfo") != null 이런뜻임 
+    -->
+<!-- <div th:if="${session.sessionUserInfo == null}"> -->
+<!-- 조건문이 같은 형태이면 더 예쁨  -->

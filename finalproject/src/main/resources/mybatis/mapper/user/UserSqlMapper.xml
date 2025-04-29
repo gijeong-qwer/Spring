@@ -18,6 +18,13 @@
         #{email},#{gender},#{birth},#{phone})
   
     </insert>
+
+    <!-- select인 경우 result타입을 꼭 설정해야한다!! -->
+    <!-- SQL 조회 결과를 어떤 Java 객체(DTO)에 매핑할지를 지정하는 것 -->
+    <select id="findUserByAccountNameAndPassword" resultType="com.ca.finalproject.dto.UserDto">
+        SELECT * FROM fp_user fu 
+        WHERE fu.account_name = #{accountName} AND fu.password = #{password}
+    </select>
 </mapper>
     <!-- #은 Mybatis에서 제공하는 문법임 , 변수가 되는 구간들을 #으로 셋팅 -->
     <!-- VALUES 내부에는 DTO필드명으로 작성, 작은따옴표'도 빼야함   -->
