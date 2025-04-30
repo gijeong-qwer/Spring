@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <h1>글쓰기</h1>
+    <form action="/board/writeArticleProcess" method="post">
+        닉네임: <span th:text="${session.sessionUserInfo.nickname}"></span>
+        <br>
+        제목: <input name="title"  type="text"><br>
+        내용: <br>
+        <textarea name="content"></textarea><br>
+        <input type="submit" value="글 저장">
+    </form>
+
+</body>
+</html>
+<!-- <span th:text="${session.sessionUserInfo.nickname}"></span> => 내부적으로는 getter를 써서 호출 -->
+<!-- name 붙일때는 DTO로 받기 때문에 항상 DTO를 먼저 작성하고 name짓기 -->

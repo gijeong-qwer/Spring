@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ca.finalproject.board.mapper.BoardSqlMapper">
+    <insert id="createArticle">
+    INSERT INTO fp_article(
+        user_id,
+        title,
+        content)
+    VALUES(#{userId},#{title},#{content})
+    </insert>
+    <select id="findAll" resultType="com.ca.finalproject.dto.ArticleDto">
+        SELECT * 
+        FROM fp_article fa
+        ORDER BY fa.id DESC
+    </select>
+</mapper>
+
+<!-- 작성전 dbever에서 문법 확인하고  복붙해서 여기서 작업하는게 좋음 문법체크가 안되서 -->

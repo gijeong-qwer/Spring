@@ -16,7 +16,44 @@
         비회원 입니다. 
         <a href="/user/loginPage">로그인</a>
     </div>
+
+    <h1>게시판</h1>
+    <!-- 테이블 형태로 게시글이 나오게할것임 예시 UI / CSS가 없었을땐 테이블로 짰음 -->
+    <!--  타임리프는 반복문을 돌릴 수 있음  -->
+    <!--  <tr th:each="data : ${dataList}"> Model에 있는 녀석들 중에 이름이 dataList인 녀석들의 값을 받아냄  -->
+    <!--<tr th:each="xxx : ${dataList}">  xxx이런식으로 써도됨 , xxx는 Map임  -->
+
+    <table border="1">
+        <tr>
+            <td>글번호</td>
+            <td>제목</td>
+            <td>작성자</td>
+            <td>조회수</td>
+            <td>작성일</td>
+        </tr>
+        <tr th:each="data : ${dataList}">
+            <td th:text="${data['articleDto'].id}"></td>
+            <td th:text="${data['articleDto'].title}"></td>
+            <td th:text="${data['userDto'].nickname}"></td>
+            <td th:text ="${data.['articleDto'].readCount}"></td>
+            <td th:text="${data['articleDto'].createdAt}"></td>
+        </tr>
+    </table>
     
+    <div th:if="${session.sessionUserInfo}">
+        <a href="/board/writeArticlePage">글쓰기</a>
+    </div>
+    <!-- 링크 만들고 DB 테이블 정의 부터 할것임  -->
+
+    <!-- <div th:text="${yyyy}"></div>
+    <div th:text="${qqqq}"></div>
+    <div th:text="${pppp}"></div>
+    <div th:text="${pppp.nickname}"></div>
+    <div th:text="${qwer}"></div>
+    <div th:text="${qwer.a}"></div>
+    <div th:text="${qwer['b']}"></div> -->
+
+
 </body>
 </html>
 <!-- 호출시 setter getter 호출 // 직접 호출 아님 -->
@@ -26,3 +63,14 @@
     -->
 <!-- <div th:if="${session.sessionUserInfo == null}"> -->
 <!-- 조건문이 같은 형태이면 더 예쁨  -->
+<!-- <div th:text="${pppp}"></div> 객체면 toString을 실행함!! -->
+<!-- <div th:text="${pppp.nickname}"></div> 이런식으로 뽑아올 수 있음 ,  -->
+<!-- 타임리프에서 session을 따로 제공하는것임.. 세션엔 pppp가 없기 때문에 그냥 쓸 수 있는것이지 -->
+<!-- 타임리프가 없으면 찾는 방식은 공부해보면 복잡함 -->
+ <!-- 모델과 타임리프는 굉장히 관련이 깊음!!! -->
+ <!-- <div th:text="${qwer.a}"></div>   비선호 타임리프-->
+ <!-- <div th:text="${qwer['b']}"></div> 선호 타임리프-->
+    <!-- <div th:text="${qwer.a}"></div> = <div th:text="${qwer['b']}"></div> 같은 방식 표현인데 후자가 권장됨 -->
+     <!-- 후자가 권장되는 이유는 코드상에서 맵인것을 명확하게 볼 수 있기 때문이다 -->
+      <!-- 타임 리프 맵일때 표현방식 !!  -->
+      <!-- <td th:text="${data['articleDto'].id}"></td> 뽑혀나온것은 객체라 .가능능 -->

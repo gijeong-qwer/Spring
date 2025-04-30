@@ -17,4 +17,11 @@ public interface UserSqlMapper {
         @Param("accountName")String accountName,
         @Param("password") String password);
 
+    // 파라미터 하나일때는 Param 안붙여도됨
+    // 2개이상일때만 문제 생기는거라 2개이상이면 꼭 붙여야함
+
+    // 값에 해당하는 애들은 #id 같은 방식임 , dto(인스턴스)와는 다름 
+    public UserDto findUserById(int id);
+
+
 }
