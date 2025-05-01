@@ -52,4 +52,35 @@ public class BoardServiceImpl {
 
         return dataList;
     }
+
+
+    // 특정 구조를 보고 메모리구조가 어떻게 구성될지 쫙쫙 그려질 정도로 하는게 강사님이 원하는 기준
+    // 할만한데 속도가 좀 느림 
+    public Map<String , Object> getArticle(int id){  // 구분하기 힘든사람들은 articleId로 써도됨 , 귀찮아서 id id 쓰고있는거임 
+
+        // 글을 볼때 조회수가 증가하는 쿼리 -> 수정할때도 증가하는데... 흠.. 근데 조회수 수정할때도 증가하게 냅두는 사이트가 많다함
+        // 수정을 따로 하는것보다 가지고 오는게 더 좋음 나중에도 파라미터로 가져오는것보다
+        boardSqlMapper.increaseReadCount(id);
+
+        // 작성자가 나와야 하므로 Map임 
+        Map<String,Object> map = new HashMap<>();
+        // 게시글을 가져오는데 이곳엔 , 닉네임이 존재하지않음
+        ArticleDto articleDto = boardSqlMapper.findArticleById(id);
+        //  게시글의 유저아이디를 기반으로 UserDto의 Id에 대입해서 해당 아이디에 대한 Dto를 가져옴
+        UserDto userDto = userSqlMapper.findUserById(articleDto.getUserId());
+        map.put("articleDto", articleDto);
+        map.put("userDto",userDto);
+
+        return map; 
+    }
+
+    public void deleArticle(int id){
+        boardSqlMapper.deleteArticleById(id);
+    }
+
+    public void updateArticle(ArticleDto articleDto){
+        boardSqlMapper.updateArticleById(articleDto);
+    }
+
+
 }

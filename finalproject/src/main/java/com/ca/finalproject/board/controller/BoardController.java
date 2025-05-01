@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.HtmlUtils;
 
 import com.ca.finalproject.board.service.BoardServiceImpl;
 import com.ca.finalproject.dto.ArticleDto;
@@ -69,6 +71,60 @@ public class BoardController {
         return "redirect:/board/mainPage";
     }
 
+    @RequestMapping("readArticlePage")
+    public String readArticlePage(
+        Model model,
+        @RequestParam("id")  int id
+    ){
+        Map<String,Object> articleData = boardService.getArticle(id);
 
+        // html escape  : 자바스크립트에서 렌더링 할때는 알아서 전환해줌 그냥 지금 쓰라고 알려주는거
+        // 이거 안하면 스크립트 공격을 받음 ..
+        // 차후 js로 작업시 자동으로 다 되서 신경 안써도됨..
+       
+        ArticleDto articleDto = (ArticleDto)articleData.get("articleDto");   // get으로 가져오는건 Object여서 타입캐스팅해야함
+        String content = articleDto.getContent();
+        content = HtmlUtils.htmlEscape(content);  // html 문법(특수문자를) 자동으로바꿔줌
+        // 단 개행만 안해줌 그래서 아래코드가 필요한것
+         // 사실이건 html escape가 아님 개행을 br로 바꾼것 
+        content = content.replaceAll("\n","<br>");
+        articleDto.setContent(content);
 
+        model.addAttribute("articleData", articleData);
+
+        return "board/readArticlePage";
+    }
+
+    @RequestMapping("deleteArticleProcess")
+    public String deleteArticleProcess(
+        @RequestParam("id") int id    // 글번호
+    ){
+        boardService.deleArticle(id);
+
+        return "redirect:/board/mainPage";
+    }
+
+    @RequestMapping("updateArticlePage")
+    public String updateArticlePage(
+        Model model,
+        @RequestParam("id") int id
+    ){
+        Map<String,Object> articleData = boardService.getArticle(id);
+        model.addAttribute("articleData", articleData);
+
+        return "board/updateArticlePage";
+    }
+
+    @RequestMapping("updateArticleProcess")
+    public String  updateArticleProcess(
+        @ModelAttribute ArticleDto params
+    ){
+        boardService.updateArticle(params);
+
+        return "redirect:/board/readArticlePage?id="+params.getId();
+        // return "redirect:/board/readArticlePage"; id 파라미터가 안날라감 redirect:/ 문자열 
+        // 이거 어려워했음 String 타입으로 return을 하니까 
+        //문자열 return이니까 그냥 이런식으로 가능한거임 ..
+        // 뒤로가기는 request를 하지않음.. 얘 때문에 발생하는 일이있음
+    }
 }

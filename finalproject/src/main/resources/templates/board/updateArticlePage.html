@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <h1>게시글 수정</h1>
+
+    <form action="/board/updateArticleProcess" method="post">
+    작성자: <span th:text="${articleData.userDto.nickname}"></span><br>
+    제목: <input name="title" type="text" th:value="${articleData.articleDto.title}">
+    내용: <br>
+    <textarea name="content" th:text="${articleData.articleDto.content}"></textarea>
+    <br>
+    <input type="hidden" name="id" th:value="${articleData.articleDto.id}">
+    <button>수정 완료</button>
+    </form>
+
+
+</body>
+</html>
+
+<!-- input타입 hidden 사용자에게 보여주지않음. 미리 값이 지정되어있음  -->
+ <!-- 사용자 눈에는 정보2개 , 웹브라우저눈에는 정보3 -->

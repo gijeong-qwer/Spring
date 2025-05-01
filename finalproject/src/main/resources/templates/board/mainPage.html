@@ -32,11 +32,13 @@
             <td>작성일</td>
         </tr>
         <tr th:each="data : ${dataList}">
-            <td th:text="${data['articleDto'].id}"></td>
-            <td th:text="${data['articleDto'].title}"></td>
-            <td th:text="${data['userDto'].nickname}"></td>
-            <td th:text ="${data.['articleDto'].readCount}"></td>
-            <td th:text="${data['articleDto'].createdAt}"></td>
+            <td th:text="${data.articleDto.id}"></td>
+            <td>
+                <a th:href="|/board/readArticlePage?id=${data.articleDto.id}|" th:text="${data.articleDto.title}"></a>
+            </td>
+            <td th:text="${data.userDto.nickname}"></td>
+            <td th:text ="${data.articleDto.readCount}"></td>
+            <td th:text="${data.articleDto.createdAt}"></td>
         </tr>
     </table>
     
@@ -74,3 +76,27 @@
      <!-- 후자가 권장되는 이유는 코드상에서 맵인것을 명확하게 볼 수 있기 때문이다 -->
       <!-- 타임 리프 맵일때 표현방식 !!  -->
       <!-- <td th:text="${data['articleDto'].id}"></td> 뽑혀나온것은 객체라 .가능능 -->
+
+<!-- 5월 1일 추가 주석 -->
+<!--1번방식 <a th:href="|/board/readArticlePage?id=${data['articleDto'].id}|" th:text="${data['articleDto'].title}"></a> -->
+<!-- 작대기는 문자같은거 넣을 수 있음  -->
+
+<!-- 타임 리프에서 @로 시작하면 url을 만들겠다다 -->
+<!--2번방식 <a th:href="@{/board/readArticlePage(id=${data['articleDto'].id})}" th:text="${data['articleDto'].title}"></a> -->
+<!-- @는 문자 안들어감  2번방식은 url 인코디드 해서 더ㅓ 명확하긴함-->
+
+<!-- <td th:text="|${data['articleDto'].id}번|"></td> 문자열처럼 주는 방식  , 근데 쓰지마세여 링크에 한글이 들어갈 가능성이 있는경우에 씀-->
+ <!-- path variable어 떻게 하더라  찾아보기 -->
+
+
+ <!-- 타임리프 기준으로는 명확하나 JSP 나 REACT 할 때 복잡할거라 위에 처럼변형형
+  타임리프 주로 쓰는 경우에 Map을 명확하게 표현하는게 좋음 
+ <tr th:each="data : ${dataList}">
+    <td th:text="${data['articleDto'].id}"></td>
+    <td>
+        <a th:href="|/board/readArticlePage?id=${data['articleDto'].id}|" th:text="${data['articleDto'].title}"></a>
+    </td>
+    <td th:text="${data['userDto'].nickname}"></td>
+    <td th:text ="${data.['articleDto'].readCount}"></td>
+    <td th:text="${data['articleDto'].createdAt}"></td>
+</tr> -->

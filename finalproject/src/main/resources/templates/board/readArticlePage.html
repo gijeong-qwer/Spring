@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <h1>게시글 보기</h1>
+    제목: <span th:text="${articleData.articleDto.title}"></span><br>
+    작성자: <span th:text="${articleData.userDto.nickname}"></span><br>
+    작성일: <span th:text="${articleData.articleDto.createdAt}"></span><br>
+    내용: <br>
+    <div th:utext="${articleData.articleDto.content}"></div>
+    <br><br>
+
+    <a href="/board/mainPage">메인페이지</a>
+    <div th:if="${session.sessionUserInfo != null &&  session.sessionUserInfo.id == articleData.userDto.id}">
+        <a th:href="|/board/deleteArticleProcess?id=${articleData.articleDto.id}|">삭제</a>
+        <a th:href="|/board/updateArticlePage?id=${articleData.articleDto.id}|">수정</a>
+    </div>
+
+
+</body>
+</html>
+
+<!-- 제목: <span th:text="${articleData.articleDto.title}"></span> session만 가능한게 아니라 정보가져오는거였네 -->
+<!-- public String readArticlePage, boardController에서 가져옴 -->
+
+<!-- 이건 UI 만 방어 
+<div th:if="${session.sessionUserInfo != null &&  session.sessionUserInfo.id == articleData.userDto.id}">
+    <a th:href="|/board/deleteArticleProcess?id=${articleData.articleDto.id}|">삭제</a>
+    <a th:href="|/board/updateArticlePage?id=${articleData.articleDto.id}|">수정</a>
+</div> -->
+
+<!-- utext : 의 무서움 타임리프 html을 만드는거 script 주입을 하여 공격 
+<div th:utext="${articleData.articleDto.content}"></div> -->
+
+
+<!-- Enter 들어가는거 아니면 진짜 utext쓰지말기 utext 사용시 boardcontroller를 참고하여
+스크립트 공격 방지 
+<h1>게시글 보기</h1>
+제목: <span th:text="${articleData.articleDto.title}"></span><br>
+작성자: <span th:text="${articleData.userDto.nickname}"></span><br>
+작성일: <span th:text="${articleData.articleDto.createdAt}"></span><br>
+내용: <br>
+<div th:utext="${articleData.articleDto.content}"></div>
+<br><br> -->

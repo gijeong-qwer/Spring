@@ -14,6 +14,30 @@
         FROM fp_article fa
         ORDER BY fa.id DESC
     </select>
+
+    <select id="findArticleById" resultType="com.ca.finalproject.dto.ArticleDto">
+        SELECT * FROM fp_article fa 
+        WHERE fa.id= #{id}
+    </select>
+
+    <update id="increaseReadCount">
+    UPDATE fp_article fa 
+    SET read_count = read_count + 1
+    WHERE fa.id = #{id}
+    </update>
+
+    <delete id="deleteArticleById">
+    DELETE FROM fp_article 
+    WHERE id = #{id}
+    </delete>
+
+    <update id="updateArticleById">
+    UPDATE fp_article fa 
+    SET fa.title = #{title}, fa.content = #{content}
+    WHERE fa.id = #{id}
+    </update>
+
 </mapper>
 
 <!-- 작성전 dbever에서 문법 확인하고  복붙해서 여기서 작업하는게 좋음 문법체크가 안되서 -->
+<!-- select 에 resultType 안쓰면 어떤 오류 나오는지 확인해보기  -->
